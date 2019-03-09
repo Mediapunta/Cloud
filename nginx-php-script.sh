@@ -1,4 +1,4 @@
-#!/bin/bash
+!#/bin/bash
 #nginx 저장소 추가
 #[Centos]
 echo name=[nginx] >> /etc/yum.repos.d/nginx.repo

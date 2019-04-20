@@ -1,7 +1,7 @@
 #!/bin/bash
 #nginx 저장소 추가
 #[Centos]
-echo name=[nginx] >> /etc/yum.repos.d/nginx.repo
+echo [nginx] >> /etc/yum.repos.d/nginx.repo
 fileName="/etc/yum.repos.d/nginx.repo"
 
 sed -i '$ a\name=nginx repo' $fileName

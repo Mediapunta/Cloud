@@ -10,7 +10,7 @@ sed -i '$ a\gpgcheck=0' $fileName
 sed -i '$ a\enabled=1' $fileName
  
 #Nginx 설치
-yum --enablerepo=nginx install nginx
+yum --enablerepo=nginx install -y nginx
 service nginx start
 chkconfig nginx on
  

@@ -5,7 +5,7 @@ echo [nginx] >> /etc/yum.repos.d/nginx.repo
 fileName="/etc/yum.repos.d/nginx.repo"
 
 sed -i '$ a\name=nginx repo' $fileName
-sed -i '$ a\baseurl=http://nginx.org/packages/centos/$releaserver/$basearch' $fileName
+sed -i '$ a\baseurl=http://nginx.org/packages/centos/$releaserver/os/$basearch' $fileName
 sed -i '$ a\gpgcheck=0' $fileName
 sed -i '$ a\enabled=1' $fileName
  

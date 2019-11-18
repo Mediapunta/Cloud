@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flaskapp
+  template:
+    metadata:
+      labels:
+        app: flaskapp
+        service: my-flask-app
+        env: k8s-dev
+        owner: junha
+      annotations:
+        # Auto Discovery Config
+        ad.datadoghq.com/flaskapp.check_names: '["prometheus"]'
+        ad.datadoghq.com/flaskapp.init_configs: '[{}]'
+        atadoghq.com/flaskapp.instances: '[{"prometheus_url":"%%host%%/metrics","metrics":["*"],"namespace":"apple"}]'
+        ad.datadoghq.com/flaskapp.logs: '[{{"type":"file","path":"/var/log/mylog.json","service":"my-flask-app","source":"python","sourcecategory":"sourcecode"}]'
+      # annotations:
+      #   ad.datadoghq.com/flaskapp.check_names: '["prometheus"]'
+      #   ad.datadoghq.com/flaskapp.init_configs: '[{}]'
+      #   atadoghq.com/flaskapp.instad.da`nces: '[{"prometheus_url":"%%host%%/metrics","metrics":["*"],"namespace":"apple"}]'
+        # 6.5 ad.datadoghq.com/flaskapp.logs: '[{"type":"file","path":"/var/log/mylog.json","service":"flask","source":"python","sourcecategory":"sourcecode"}]'
+    spec:
+      containers:
+      - name: flaskapp
+        image: zmiao1/sample_flask:007
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DD_AGENT_SERVICE_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: DD_AGENT_SERVICE_PORT    
+          value: '8126'
+        - name: DD_AGENT_STATSD_PORT
+          value: '8125'
+        - name: DD_TRACE_GLOBAL_TAGS
+          value: 'env:k8s-dev'
+        - name: DD_SERVICE_NAME
+          value: 'my-flask-app'
+        - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+          value: '{"owner":"owner","category":"category","app":"app","service":"service","env":"env"}'
+        - name: DD_LOGS_INJECTION 
+          value: "true"          
+        volumeMounts:
+          - name: flasklogs
+            mountPath: /var/log
+      volumes:
+        - hostPath:
+            path: /var/log
+          name: flasklogs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flaskapp
+spec:
+  selector:
+    app: flaskapp
+  ports:
+  - name: http
+    protocol: TCP
+    port: 5000
+  type: LoadBalancer
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-datadog-confd
+  namespace: default
+data:
+  flasklogs.yaml: |-
+    init_config:
+    instances:
+    logs:
+    - type: file
+      path: /var/log/mylog.json
+      service: my-flask-app
+      source: python
+      sourcecategory: sourcecode 

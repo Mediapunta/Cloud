@@ -1,0 +1,141 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+spec:
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+      name: datadog-agent
+    spec:
+      serviceAccountName: datadog-agent
+      containers:
+      - image: datadog/agent:latest
+      # datadog/agent:latest
+      # datadog/agent:6.14.1
+        imagePullPolicy: Always
+        name: datadog-agent
+        ports:
+          - containerPort: 8125
+            hostPort: 8125
+            name: dogstatsdport
+            protocol: UDP
+          - containerPort: 8126
+            hostPort: 8126
+            name: traceport
+            protocol: TCP
+        env:
+          # API Key
+          # 보안을 위해 API Key는 secret에 저장하는 것을 권장 합니다.
+          #- name: DD_API_KEY
+          #  value: "YOUR_API_KEY"
+          - name: DD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: datadog-api-key
+                key: apikey
+          # INFRA                      
+          - name: DD_COLLECT_KUBERNETES_EVENTS
+            value: "true"
+          - name: DD_LEADER_ELECTION
+            value: "true"
+          - name: KUBERNETES
+            value: "true"
+          - name: DD_KUBERNETES_KUBELET_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          # Node들과 컨테이너 수가 많을 때 Cluster Agent 사용
+          #- name: DD_CLUSTER_AGENT_ENABLED
+          #  value: "true"
+          #- name: DD_CLUSTER_AGENT_AUTH_TOKEN
+          #  value: "PDMyX0NIQVJBQ1RFUl9MT05HX1NUUklORz4="
+          #- name: DD_CLUSTER_AGENT_AUTH_TOKEN
+          #  valueFrom:
+          #   secretKeyRef:
+          #      name: datadog-auth-token
+          #      key: token
+          #
+          # To send custom metrics via DogStatsD
+          - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
+            value: "true"
+          # Live Process Monitoring
+          - name: DD_PROCESS_AGENT_ENABLED
+            value: "true"
+          # Logs
+          - name: DD_LOGS_ENABLED
+            value: "true"
+          - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+            value: "true"
+          - name: DD_LOG_LEVEL # 디버깅 모드 활성화: debug / default: info
+            value: "debug"
+          # APM  
+          - name: DD_APM_ENABLED
+            value: "true"
+          - name: DD_APM_NON_LOCAL_TRAFFIC
+          value: "true"
+          # For Trace Search
+          - name: DD_APM_ANALYZED_SPANS
+            value: "my-flask-app|flask.request=1,postgres_service|servlet.request=1,springboot_service|servlet.request=1"
+          # Pod Label - Tag Mapping
+          - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+            value: '{"owner":"owner","service":"service","env":"env","app":"app"}'
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        volumeMounts:
+          - name: dockersocket
+            mountPath: /var/run/docker.sock
+          - name: procdir
+            mountPath: /host/proc
+            readOnly: true
+          - name: cgroups
+            mountPath: /host/sys/fs/cgroup
+            readOnly: true
+          # log
+          - name: pointdir
+            mountPath: /opt/datadog-agent/run
+          # custom log paths
+          - name: flasklogs
+            mountPath: /var/log
+          - name: vol-datadog-confd
+            mountPath: /conf.d
+          # live process monitoring
+          - name: passwd
+            mountPath: /etc/passwd
+            readOnly: true
+          # required for process monitoring
+        livenessProbe:
+          exec:
+            command:
+            - ./probe.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5
+      volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+          name: dockersocket
+        - hostPath:
+            path: /proc
+          name: procdir
+        - hostPath:
+            path: /sys/fs/cgroup
+          name: cgroups
+        - hostPath:
+            path: /opt/datadog-agent/run
+          name: pointdir
+        # live process monitoring
+        - hostPath:
+            path: /etc/passwd
+          name: passwd
+        - hostPath:
+            path: /var/log/
+          name: flasklogs
+        - name: vol-datadog-confd
+          configMap:
+            name: cm-datadog-confd

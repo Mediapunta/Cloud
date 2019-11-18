@@ -74,7 +74,7 @@ spec:
           - name: DD_APM_ENABLED
             value: "true"
           - name: DD_APM_NON_LOCAL_TRAFFIC
-          value: "true"
+            value: "true"
           # For Trace Search
           - name: DD_APM_ANALYZED_SPANS
             value: "my-flask-app|flask.request=1,postgres_service|servlet.request=1,springboot_service|servlet.request=1"

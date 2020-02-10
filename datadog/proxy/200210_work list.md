@@ -328,3 +328,61 @@ curl: (6) Could not resolve host: app.datadoghq.com; Name or service not known
 2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check file_handle with an interval of 15s
 2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check io with an interval of 15s
 ```
+
+
+
+```
+[root@doneweb01 ~]# tail -f /var/log/datadog/agent.log
+2020-02-10 17:38:51 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check apache
+2020-02-10 17:38:51 KST | CORE | INFO | (pkg/metadata/host/host.go:161 in getNetworkMeta) | could not get network metadata: could not detect network ID
+2020-02-10 17:38:52 KST | CORE | INFO | (pkg/serializer/serializer.go:283 in SendMetadata) | Sent metadata payload, size (raw/compressed): 4022/1706 bytes.
+2020-02-10 17:38:53 KST | CORE | INFO | (pkg/forwarder/transaction.go:193 in Process) | Successfully posted payload to "https://7-16-1-app.agent.datadoghq.com/intake/?api_key=*************************5da00", the agent will only log transaction success every 500 transactions
+2020-02-10 17:38:55 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check network
+2020-02-10 17:38:55 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check network
+2020-02-10 17:38:56 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check load
+2020-02-10 17:38:56 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check load
+2020-02-10 17:38:57 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check file_handle
+2020-02-10 17:38:57 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check file_handle
+2020-02-10 17:38:58 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check cpu
+2020-02-10 17:38:58 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check cpu
+2020-02-10 17:39:02 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check uptime
+2020-02-10 17:39:02 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check uptime
+2020-02-10 17:39:03 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check memory
+2020-02-10 17:39:03 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check memory
+2020-02-10 17:39:04 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check io
+2020-02-10 17:39:04 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check io
+2020-02-10 17:39:05 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check disk
+2020-02-10 17:39:05 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check disk
+2020-02-10 17:39:06 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check apache
+2020-02-10 17:39:06 KST | CORE | WARN | (pkg/collector/python/datadog_agent.go:118 in LogMessage) | apache:a3e9de086a635087 | (apache.py:70) | Caught exception 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto
+2020-02-10 17:39:06 KST | CORE | ERROR | (pkg/collector/runner/runner.go:292 in work) | Error running check apache: [{"message": "503 Server Error: Service Unavailable for url: http://localhost/server-status?auto", "traceback": "Traceback (most recent call last):\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/base/checks/base.py\", line 678, in run\n    self.check(instance)\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/apache/apache.py\", line 67, in check\n    r.raise_for_status()\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/requests/models.py\", line 940, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto\n"}]
+2020-02-10 17:39:06 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check apache
+2020-02-10 17:39:10 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check network
+2020-02-10 17:39:10 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check network
+2020-02-10 17:39:11 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check load
+2020-02-10 17:39:11 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check load
+2020-02-10 17:39:12 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check file_handle
+2020-02-10 17:39:12 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check file_handle
+2020-02-10 17:39:13 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check cpu
+2020-02-10 17:39:13 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check cpu
+2020-02-10 17:39:17 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check uptime
+2020-02-10 17:39:17 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check uptime
+2020-02-10 17:39:18 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check memory
+2020-02-10 17:39:18 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check memory
+2020-02-10 17:39:19 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check io
+2020-02-10 17:39:19 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check io
+2020-02-10 17:39:20 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check disk
+2020-02-10 17:39:20 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check disk
+2020-02-10 17:39:21 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check apache
+2020-02-10 17:39:21 KST | CORE | WARN | (pkg/collector/python/datadog_agent.go:118 in LogMessage) | apache:a3e9de086a635087 | (apache.py:70) | Caught exception 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto
+2020-02-10 17:39:21 KST | CORE | ERROR | (pkg/collector/runner/runner.go:292 in work) | Error running check apache: [{"message": "503 Server Error: Service Unavailable for url: http://localhost/server-status?auto", "traceback": "Traceback (most recent call last):\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/base/checks/base.py\", line 678, in run\n    self.check(instance)\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/apache/apache.py\", line 67, in check\n    r.raise_for_status()\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/requests/models.py\", line 940, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto\n"}]
+2020-02-10 17:39:21 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check apache
+^C
+[root@doneweb01 ~]# vim /var/log/datadog/agent.log
+2020-02-10 17:39:35 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check disk
+2020-02-10 17:39:35 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check disk
+2020-02-10 17:39:36 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check apache
+2020-02-10 17:39:36 KST | CORE | WARN | (pkg/collector/python/datadog_agent.go:118 in LogMessage) | apache:a3e9de086a635087 | (apache.py:70) | Caught exception 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto
+2020-02-10 17:39:36 KST | CORE | ERROR | (pkg/collector/runner/runner.go:292 in work) | Error running check apache: [{"message": "503 Server Error: Service Unavailable for url: http://localhost/server-status?auto", "traceback": "Traceback (most recent call last):\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/base/checks/base.py\", line 678, in run\n    self.check(instance)\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/datadog_checks/apache/apache.py\", line 67, in check\n    r.raise_for_status()\n  File \"/opt/datadog-agent/embedded/lib/python3.7/site-packages/requests/models.py\", line 940, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 503 Server Error: Service Unavailable for url: http://localhost/server-status?auto\n"}]
+2020-02-10 17:39:36 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check apache
+```

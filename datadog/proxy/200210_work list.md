@@ -1,4 +1,69 @@
 # proxy 서버
+yum install -y squid
+
+vi /etc/squid/squid.conf
+```
+# Recommended minimum Access Permission configuration:
+#
+# Deny requests to certain unsafe ports
+http_access deny !Safe_ports
+
+# Deny CONNECT to other than secure SSL ports
+http_access deny CONNECT !SSL_ports
+
+# Only allow cachemgr access from localhost
+http_access allow localhost manager
+http_access deny manager
+
+# Example rule allowing access from your local networks.
+# Adapt localnet in the ACL section to list your (internal) IP networks
+# from where browsing should be allowed
+http_access allow localnet
+http_access allow localhost
+
+# And finally deny all other access to this proxy
+#http_access deny all
+
+# Squid normally listens to port 3128
+#http_port 3128
+
+#Configure hostname
+visible_hostname squid
+
+#Handling HTTP requests
+http_port 3129
+
+# Insert your own Rules here to allow access from your clients
+acl white_urls dstdomain "/etc/squid/whitelist_site.acl"
+http_access allow white_urls
+
+# And finally deny all other access to this proxy
+http_access deny all
+#http_access allow all
+
+logformat combined %>a %ui %un [%{%d/%b/%Y:%H:%M:%S +0000}tl] "%rm %ru HTTP/%rv" %<Hs %<st "%{Referer}>h" "%{User-Agent}>h" %Ss:%Sh
+access_log /var/log/squid/access.log combined
+```
+
+vim /etc/squid/whitelist_site.acl
+```
+# whitelist_site.acl
+.datadoghq.com
+```
+
+
+systemctl restart squid
+
+sudo -u dd-agent cp /etc/datadog-agent/conf.d/squid.d/conf.yaml.example /etc/datadog-agent/conf.d/squid.d/conf.yaml
+
+vim /etc/datadog-agent/conf.d/squid.d/conf.yaml
+```
+instanes:
+  - name: 
+  port: 3129  
+# 기본 포트 : 3128 에서 3129로 세팅하였으니 변경 
+
+```
 
 ```
 /var/log/squid/access.log
@@ -56,8 +121,8 @@ white list 적용 후 발생하는 agent log
 /etc/datadog-agent/datadog.yaml
 ```
 proxy:
-  https: http://proxy-server:3129
   http: http://proxy-server:3129
+  https: http://proxy-server:3129
 tags:
 #  - env:dev
   - services:test
@@ -67,3 +132,10 @@ apm_config:
   enabled: true
 #logs_enabled: true
 ``
+
+# Squid Integration
+/etc/datadog-agent/conf.d/squid.d/conf.yaml
+
+sudo -u dd-agent cp /etc/datadog-agent/conf.d/squid.d/conf.yaml.example /etc/datadog-agent/conf.d/squid.d/conf.yaml
+
+

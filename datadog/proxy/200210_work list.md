@@ -126,6 +126,7 @@ proxy:
 tags:
 #  - env:dev
   - services:test
+hostname: Datadog-proxy
 process_config:
   enabled: true
 apm_config:

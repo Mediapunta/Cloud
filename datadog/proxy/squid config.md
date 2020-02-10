@@ -16,6 +16,8 @@ sudo touch /etc/squid/squid.conf
 sudo chown -R root:squid /etc/squid/squid.conf
 sudo chmod 640 /etc/squid/squid.conf
 cat | sudo tee /etc/init.d/squid <<'EOF'
+
+```
 #!/bin/sh
 # chkconfig: - 90 25
 echo -n 'Squid service'
@@ -34,6 +36,7 @@ echo "Usage: `basename $0` {start|stop|reload}"
 ;;
 esac
 EOF
+```
 sudo chmod +x /etc/init.d/squid
 sudo chkconfig squid on
 
@@ -50,3 +53,6 @@ visible_hostname squid
 #Handling HTTP requests
 http_port 3129
 http_access allow all
+
+logformat combined %>a %ui %un [%{%d/%b/%Y:%H:%M:%S +0000}tl] "%rm %ru HTTP/%rv" %<Hs %<st "%{Referer}>h" "%{User-Agent}>h" %Ss:%Sh
+access_log /var/log/squid/access.log combined

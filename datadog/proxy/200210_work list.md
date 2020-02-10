@@ -301,5 +301,30 @@ body
 curl: (6) Could not resolve host: app.datadoghq.com; Name or service not known
 ```
 
-
-
+##postgresDB agent log
+```
+[root@donedb01 datadog-agent]# tail -f /var/log/datadog/agent.log
+2020-02-10 17:30:52 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check io
+2020-02-10 17:30:52 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check io, next runs will be logged every 500 runs
+2020-02-10 17:30:53 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check disk
+2020-02-10 17:30:53 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check disk, next runs will be logged every 500 runs
+2020-02-10 17:30:58 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check network
+2020-02-10 17:30:58 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check network, next runs will be logged every 500 runs
+2020-02-10 17:30:59 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check load
+2020-02-10 17:30:59 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check load, next runs will be logged every 500 runs
+2020-02-10 17:31:00 KST | CORE | INFO | (pkg/collector/runner/runner.go:261 in work) | Running check file_handle
+2020-02-10 17:31:00 KST | CORE | INFO | (pkg/collector/runner/runner.go:327 in work) | Done running check file_handle, next runs will be logged every 500 runs
+^C
+[root@donedb01 datadog-agent]# vi /var/log/datadog/agent.log
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/collector.go:57 in NewCollector) | Embedding Python 3.7.4 (default, Dec 31 2019, 20:54:07) [GCC 4.7.2 20121015 (Red Hat 4.7.2-5)]
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/autodiscovery/providers/file.go:74 in Collect) | file: searching for configuration files at: /etc/datadog-agent/conf.d
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/autodiscovery/providers/file.go:74 in Collect) | file: searching for configuration files at: /opt/datadog-agent/bin/agent/dist/conf.d
+2020-02-10 15:34:12 KST | CORE | WARN | (pkg/autodiscovery/providers/file.go:78 in Collect) | Skipping, open /opt/datadog-agent/bin/agent/dist/conf.d: no such file or directory
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/autodiscovery/providers/file.go:74 in Collect) | file: searching for configuration files at:
+2020-02-10 15:34:12 KST | CORE | WARN | (pkg/autodiscovery/providers/file.go:78 in Collect) | Skipping, open : no such file or directory
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check postgres with an interval of 15s
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check cpu with an interval of 15s
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check disk with an interval of 15s
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check file_handle with an interval of 15s
+2020-02-10 15:34:12 KST | CORE | INFO | (pkg/collector/scheduler/scheduler.go:77 in Enter) | Scheduling check io with an interval of 15s
+```

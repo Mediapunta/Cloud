@@ -46,14 +46,15 @@ cp /etc/datadog-agent/conf.d/apache.d/conf.yaml.example /etc/datadog-agent/conf.
 
 
 white list 적용 후 발생하는 agent log
+```
 -02-10 14:10:31 KST | CORE | INFO | (pkg/serializer/serializer.go:283 in SendMetadata) | Sent metadata payload, size (raw/compressed): 1556/689 bytes.
 2020-02-10 14:10:31 KST | CORE | INFO | (pkg/serializer/serializer.go:303 in SendJSONToV1Intake) | Sent processes metadata payload, size: 1356 bytes.
 2020-02-10 14:10:33 KST | CORE | INFO | (pkg/metadata/host/host.go:161 in getNetworkMeta) | could not get network metadata: could not detect network ID
 2020-02-10 14:10:33 KST | CORE | INFO | (pkg/serializer/serializer.go:283 in SendMetadata) | Sent metadata payload, size (raw/compressed): 3675/1661 bytes.
+```
 
-
-
-
+/etc/datadog-agent/datadog.yaml
+```
 proxy:
   https: http://proxy-server:3129
   http: http://proxy-server:3129
@@ -65,3 +66,4 @@ process_config:
 apm_config:
   enabled: true
 #logs_enabled: true
+``

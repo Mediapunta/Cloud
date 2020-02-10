@@ -2,17 +2,17 @@
 
 ```
 /var/log/squid/access.log
-1581303742.596    823 172.16.2.13 TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/54.208.252.45 -
-1581303790.323    931 172.16.3.11 TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/54.208.252.45 -
-1581307342.661    894 172.16.2.13 TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/34.197.177.186 -
-1581307390.235    842 172.16.3.11 TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/34.197.177.186 -
-172.16.2.13 - - [10/Feb/2020:13:29:27 +0000] "CONNECT process.datadoghq.com:443 HTTP/1.1" - 32727 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.2.13 - - [10/Feb/2020:13:29:27 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 14418 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.2.13 - - [10/Feb/2020:13:29:28 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 5425 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.2.13 - - [10/Feb/2020:13:29:29 +0000] "CONNECT app.datadoghq.com:443 HTTP/1.1" - 5758 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.3.11 - - [10/Feb/2020:13:40:33 +0000] "CONNECT process.datadoghq.com:443 HTTP/1.1" - 108516 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.3.11 - - [10/Feb/2020:13:40:33 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 40313 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
-172.16.3.11 - - [10/Feb/2020:13:40:34 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 5425 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+1581303742.596    823 172.x.x.x TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/54.208.252.45 -
+1581303790.323    931 172.16.x.x TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/54.208.252.45 -
+1581307342.661    894 172.16.x.x TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/34.197.177.186 -
+1581307390.235    842 172.16.x.x TCP_MISS/200 5758 CONNECT app.datadoghq.com:443 - HIER_DIRECT/34.197.177.186 -
+172.16.x.x - - [10/Feb/2020:13:29:27 +0000] "CONNECT process.datadoghq.com:443 HTTP/1.1" - 32727 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:29:27 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 14418 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:29:28 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 5425 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:29:29 +0000] "CONNECT app.datadoghq.com:443 HTTP/1.1" - 5758 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:40:33 +0000] "CONNECT process.datadoghq.com:443 HTTP/1.1" - 108516 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:40:33 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 40313 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
+172.16.x.x - - [10/Feb/2020:13:40:34 +0000] "CONNECT 7-16-1-app.agent.datadoghq.com:443 HTTP/1.1" - 5425 "-" "Go-http-client/1.1" TCP_MISS:HIER_DIRECT
 ```
 
 

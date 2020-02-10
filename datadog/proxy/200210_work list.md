@@ -123,6 +123,8 @@ white list 적용 후 발생하는 agent log
 proxy:
   http: http://proxy-server:3129
   https: http://proxy-server:3129
+  no_proxy:
+    - http://localhost
 tags:
 #  - env:dev
   - services:test

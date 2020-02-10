@@ -138,4 +138,18 @@ apm_config:
 
 sudo -u dd-agent cp /etc/datadog-agent/conf.d/squid.d/conf.yaml.example /etc/datadog-agent/conf.d/squid.d/conf.yaml
 
+## <jboss_wildfly.d>
+sudo -u dd-agent cp /etc/datadog-agent/conf.d/jboss_wildfly.d/conf.yaml.example /etc/datadog-agent/conf.d/jboss_wildfly.d/conf.yaml 
+
+
+## <PostgresSQL>
+sudo -u dd-agent cp /etc/datadog-agent/conf.d/postgres.d/conf.yaml.example /etc/datadog-agent/conf.d/postgres.d/conf.yaml 
+```
+edb-postgres
+```
+
+sudo -u dd-agent cp /etc/datadog-agent/datadog.yaml.example /etc/datadog-agent/datadog.yaml 
+
+
+
 

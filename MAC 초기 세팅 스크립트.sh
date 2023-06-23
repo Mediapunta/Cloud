@@ -21,6 +21,21 @@ brew update
 #brew list //패키지 리스트
 #brew upgrade <패키지 이름> //패키지 업데이트
 
+#"cask"는 Safari, Chrome, Word 등과 같이 그래픽을 통해 작업하는 프로그램을 설치할 수 있게 해주는 패키지입니다.
+# cask 설치
+brew install cask
+
+#크롬 설치
+brew install caskroom/cask/google-chrome
+brew cask install google-chrome
+
+# Mounty 설치
+# Mounty는 NTFS FileSystem 디스크를 Write 할수 있게 해주는 프로그램
+brew cask install mounty
+
+brew install --cask iterm2
+brew install --cask cyberduck
+
 # 파이썬을 설치하기 전에 C 컴파일러를 설치해야 합니다. 이를 위해서는 Xcode Command Line Tools을 설치하는 방법이 가장 빠릅니다. xcode-select --install
 xcode-select --install
 
@@ -64,18 +79,6 @@ brew install wget
 # jq 설치 / json 포멧
 brew install jq
 
-#"cask"는 Safari, Chrome, Word 등과 같이 그래픽을 통해 작업하는 프로그램을 설치할 수 있게 해주는 패키지입니다.
-# cask 설치
-brew install cask
-
-#크롬 설치
-brew install caskroom/cask/google-chrome
-brew cask install google-chrome
-
-# Mounty 설치
-# Mounty는 NTFS FileSystem 디스크를 Write 할수 있게 해주는 프로그램
-brew cask install mounty
-
 #AWS CLI 설치
 brew install awscli2
 
@@ -92,7 +95,7 @@ sudo python setup.py install
 #sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-darwin-amd64-latest
 
 #Now, run
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+#ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 #Install amazon-ecs-cli using brew
 brew install amazon-ecs-cli
 
@@ -110,4 +113,4 @@ sudo chmod +x /usr/local/bin/ecs-cli
 python -V
 
 # datadog Python module 설치
-pip3 install datadog
+#pip3 install datadog
